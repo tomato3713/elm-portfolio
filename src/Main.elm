@@ -16,6 +16,14 @@ main =
 -- MODEL
 
 
+type alias GitHubRepo =
+    { name : String
+    , url : String
+    , lang : String
+    , description : String
+    }
+
+
 type alias Model =
     { flagMenu : Bool }
 
