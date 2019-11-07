@@ -29,15 +29,21 @@ type alias GitHubRepo =
     }
 
 
-type Model
+type State
     = Failure
     | Loading
     | Success String
 
 
+type alias Model =
+    { state : State
+    , menuFlag : Bool
+    }
+
+
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Loading
+    ( { state = Loading, menuFlag = False }
     , Http.get
         { url = "https://api.github.com/users/tomato3713/repos?sort=updated"
         , expect = Http.expectString GotText
@@ -51,6 +57,8 @@ init _ =
 
 type Msg
     = GotText (Result Http.Error String)
+    | ShowMenu
+    | HideMenu
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -59,10 +67,16 @@ update msg model =
         GotText result ->
             case result of
                 Ok fullText ->
-                    ( Success fullText, Cmd.none )
+                    ( { state = Success fullText, menuFlag = model.menuFlag }, Cmd.none )
 
                 Err _ ->
-                    ( Failure, Cmd.none )
+                    ( { state = Failure, menuFlag = model.menuFlag }, Cmd.none )
+
+        ShowMenu ->
+            ( { state = model.state, menuFlag = True }, Cmd.none )
+
+        HideMenu ->
+            ( { state = model.state, menuFlag = False }, Cmd.none )
 
 
 
@@ -80,35 +94,26 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    topNoMenu model
+    top model
 
 
-topNoMenu : Model -> Html msg
-topNoMenu model =
-    Html.div
-        [ Attributes.id "App" ]
-        [ Html.button
-            []
-            [ Html.text "menu" ]
-        , Html.div
-            [ Attributes.id "contents" ]
-            [ developments model ]
-        , contacts
-        ]
-
-
-top : Model -> Html msg
+top : Model -> Html Msg
 top model =
     Html.div
         [ Attributes.id "App" ]
         [ Html.button
-            []
+            [ if model.menuFlag then
+                Events.onClick HideMenu
+
+              else
+                Events.onClick ShowMenu
+            ]
             [ Html.text "menu" ]
-        , topMenu
+        , Html.div []
+            [ topMenu model ]
         , Html.div
             [ Attributes.id "contents" ]
-            [ developments model
-            ]
+            [ developments model ]
         , contacts
         ]
 
@@ -117,15 +122,23 @@ top model =
 --- top menu component
 
 
-topMenu =
+topMenu : Model -> Html msg
+topMenu model =
     Html.ul
         [ Attributes.id "top-menu", Attributes.class "menu" ]
-        [ Html.li
-            [ Attributes.class "menu-item" ]
-            [ Html.text "test" ]
-        , Html.li
-            [ Attributes.class "menu-item" ]
-            [ Html.text "test" ]
+        [ case model.menuFlag of
+            True ->
+                Html.div []
+                    [ Html.li
+                        [ Attributes.class "menu-item" ]
+                        [ Html.text "menu1" ]
+                    , Html.li
+                        [ Attributes.class "menu-item" ]
+                        [ Html.text "menu2" ]
+                    ]
+
+            False ->
+                Html.text "no menu"
         ]
 
 
@@ -140,7 +153,7 @@ developments model =
         [ Html.div
             [ Attributes.class "developments-title" ]
             [ Html.text "Developments" ]
-        , case model of
+        , case model.state of
             Failure ->
                 Html.text "I was unable to load repositories..."
 
