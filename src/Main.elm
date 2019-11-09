@@ -23,8 +23,8 @@ main =
 
 type alias GitHubRepo =
     { name : String
-    , url : String
-    , lang : String
+    , html_url : String
+    , language : String
     , description : String
     }
 
@@ -32,7 +32,7 @@ type alias GitHubRepo =
 type State
     = Failure
     | Loading
-    | Success String
+    | Success (List GitHubRepo)
 
 
 type alias Model =
@@ -46,9 +46,19 @@ init _ =
     ( { state = Loading, menuFlag = False }
     , Http.get
         { url = "https://api.github.com/users/tomato3713/repos?sort=updated"
-        , expect = Http.expectString GotText
+        , expect = Http.expectJson GotRepositories reposDecoder
         }
     )
+
+
+reposDecoder : Json.Decode.Decoder (List GitHubRepo)
+reposDecoder =
+    Json.Decode.map4 GitHubRepo
+        (Json.Decode.field "name" Json.Decode.string)
+        (Json.Decode.field "html_url" Json.Decode.string)
+        (Json.Decode.field "language" Json.Decode.string)
+        (Json.Decode.field "description" Json.Decode.string)
+        |> Json.Decode.list
 
 
 
@@ -56,7 +66,7 @@ init _ =
 
 
 type Msg
-    = GotText (Result Http.Error String)
+    = GotRepositories (Result Http.Error (List GitHubRepo))
     | ShowMenu
     | HideMenu
 
@@ -64,10 +74,10 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        GotText result ->
+        GotRepositories result ->
             case result of
-                Ok fullText ->
-                    ( { state = Success fullText, menuFlag = model.menuFlag }, Cmd.none )
+                Ok fullRepos ->
+                    ( { state = Success fullRepos, menuFlag = model.menuFlag }, Cmd.none )
 
                 Err _ ->
                     ( { state = Failure, menuFlag = model.menuFlag }, Cmd.none )
@@ -160,12 +170,19 @@ developments model =
             Loading ->
                 Html.text "Loading..."
 
-            Success fullText ->
-                Html.pre [] [ Html.text fullText ]
+            Success fullRepos ->
+                viewRepositories fullRepos
         , Html.div
             [ Attributes.class "developments-item" ]
             []
         ]
+
+
+viewRepositories : List GitHubRepo -> Html msg
+viewRepositories repos =
+    repos
+        |> List.map (\l -> Html.li [] [ Html.text l.name ])
+        |> Html.ul []
 
 
 
