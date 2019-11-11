@@ -111,16 +111,21 @@ top : Model -> Html Msg
 top model =
     Html.div
         [ Attributes.id "App" ]
-        [ Html.button
-            [ if model.menuFlag then
-                Events.onClick HideMenu
+        [ if model.menuFlag then
+            Html.div
+                []
+                [ Html.button
+                    [ Events.onClick HideMenu ]
+                    [ Html.text "Close Menu" ]
+                , Html.div
+                    []
+                    [ topMenu model ]
+                ]
 
-              else
-                Events.onClick ShowMenu
-            ]
-            [ Html.text "menu" ]
-        , Html.div []
-            [ topMenu model ]
+          else
+            Html.button
+                [ Events.onClick ShowMenu ]
+                [ Html.text "Open menu" ]
         , Html.div
             [ Attributes.id "contents" ]
             [ developments model ]
