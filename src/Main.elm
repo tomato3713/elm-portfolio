@@ -24,8 +24,6 @@ main =
 type alias GitHubRepo =
     { name : String
     , html_url : String
-    , language : String
-    , description : String
     }
 
 
@@ -53,11 +51,9 @@ init _ =
 
 reposDecoder : Json.Decode.Decoder (List GitHubRepo)
 reposDecoder =
-    Json.Decode.map4 GitHubRepo
+    Json.Decode.map2 GitHubRepo
         (Json.Decode.field "name" Json.Decode.string)
         (Json.Decode.field "html_url" Json.Decode.string)
-        (Json.Decode.field "language" Json.Decode.string)
-        (Json.Decode.field "description" Json.Decode.string)
         |> Json.Decode.list
 
 
@@ -74,13 +70,16 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        GotRepositories result ->
-            case result of
-                Ok fullRepos ->
-                    ( { state = Success fullRepos, menuFlag = model.menuFlag }, Cmd.none )
+        GotRepositories resul ->
+            Debug.log "" resul
+                |> (\result ->
+                        case result of
+                            Ok fullRepos ->
+                                ( { state = Success fullRepos, menuFlag = model.menuFlag }, Cmd.none )
 
-                Err _ ->
-                    ( { state = Failure, menuFlag = model.menuFlag }, Cmd.none )
+                            Err _ ->
+                                ( { state = Failure, menuFlag = model.menuFlag }, Cmd.none )
+                   )
 
         ShowMenu ->
             ( { state = model.state, menuFlag = True }, Cmd.none )
