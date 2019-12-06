@@ -6,6 +6,7 @@ import Html.Attributes as Attributes
 import Html.Events as Events
 import Http
 import Json.Decode
+import List
 
 
 main =
@@ -43,7 +44,7 @@ init : () -> ( Model, Cmd Msg )
 init _ =
     ( { state = Loading, menuFlag = False }
     , Http.get
-        { url = "https://api.github.com/users/tomato3713/repos?sort=updated"
+        { url = "https://api.github.com/users/tomato3713/repos?sort=updated&per_page=5"
         , expect = Http.expectJson GotRepositories reposDecoder
         }
     )
@@ -134,20 +135,26 @@ top model =
 topMenu : Model -> Html msg
 topMenu model =
     Html.ul
-        [ Attributes.id "top-menu", Attributes.class "menu" ]
-        [ case model.menuFlag of
-            True ->
-                Html.div []
-                    [ Html.li
-                        [ Attributes.class "menu-item" ]
-                        [ Html.text "menu1" ]
-                    , Html.li
-                        [ Attributes.class "menu-item" ]
-                        [ Html.text "menu2" ]
+        [ Attributes.id "top-menu"
+        , Attributes.class "menu"
+        ]
+        [ if model.menuFlag then
+            Html.div
+                []
+                [ Html.li
+                    [ Attributes.class "menu-item"
                     ]
+                    [ Html.text "menu1"
+                    ]
+                , Html.li
+                    [ Attributes.class "menu-item"
+                    ]
+                    [ Html.text "menu2"
+                    ]
+                ]
 
-            False ->
-                Html.text "no menu"
+          else
+            Html.text "no menu"
         ]
 
 
@@ -188,6 +195,7 @@ viewRepositories repos =
 --- Contacts component
 
 
+contacts : Html msg
 contacts =
     Html.div
         [ Attributes.class "contacts" ]
