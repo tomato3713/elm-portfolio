@@ -144,17 +144,29 @@ topMenu model =
                 [ Html.li
                     [ Attributes.class "menu-item"
                     ]
-                    [ Html.text "menu1"
+                    [ Html.text "Home"
                     ]
                 , Html.li
                     [ Attributes.class "menu-item"
                     ]
-                    [ Html.text "menu2"
+                    [ Html.text "Blog"
+                    ]
+                , Html.li
+                    [ Attributes.class "menu-item" ]
+                    [ Html.text "Links"
+                    ]
+                , Html.li
+                    [ Attributes.class "menu-item"
+                    , Attributes.style "float" "right"
+                    ]
+                    [ Html.text "About"
                     ]
                 ]
 
           else
-            Html.text "no menu"
+            Html.span
+                []
+                []
         ]
 
 
