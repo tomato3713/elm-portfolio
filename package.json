@@ -1,0 +1,29 @@
+{
+  "name": "elm-portfolio",
+  "version": "1.0.0",
+  "description": "This project is bootstrapped with [Create Elm App](https://github.com/halfzebra/create-elm-app).",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "alchelmy": "github:aratama/alchelmy"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "portfolio"
+  ],
+  "author": "taichi watanabe",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomato3713/elm-portfolio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tomato3713/elm-portfolio/issues"
+  },
+  "homepage": "https://github.com/tomato3713/elm-portfolio#readme"
+}
