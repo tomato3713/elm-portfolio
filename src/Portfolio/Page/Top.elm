@@ -122,12 +122,12 @@ view model =
                 [ Html.h2 []
                     [ Html.text "Self Introduction" ]
                 , Html.div []
-                    [ Html.dl []
+                    [ Html.dl
+                        [ Html.Attributes.class "definition_list" ]
                         [ Portfolio.Common.definitionItem "Name" "Taichi Watanabe"
-                        , Portfolio.Common.definitionItem "学校" "国立大学法人 電気通信大学 (UEC)"
                         , Portfolio.Common.definitionItem "Programming Languages" "Go, Java, Ruby, Python, JavaScript, CSS, Elm, C#, Lisp"
                         , Portfolio.Common.definitionItem "Experience" "HP development, Wordpress, dotNet, API Client Library, Server Monitoring (Mackerel)"
-                        , Portfolio.Common.definitionItem "Works (Part time jobs)" "WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。株式会社はてなにてサマーインターンシップ (2019) に参加していました。"
+                        , Portfolio.Common.definitionItem "Works (Part time jobs)" "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。"
                         ]
                     ]
                 ]
