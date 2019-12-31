@@ -4,6 +4,8 @@ import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation exposing (Key, load, pushUrl)
 import Html
 import Html.Attributes exposing (class, href)
+import Http
+import Json.Decode
 import Maybe exposing (Maybe(..))
 import Portfolio.Common
 import Portfolio.Root as Root exposing (Flags, Session)
@@ -11,12 +13,28 @@ import Url exposing (Url)
 import Url.Parser as UrlParser exposing (Parser, map, s, top)
 
 
+type alias GitHubRepo =
+    { name : String
+    , html_url : String
+    }
+
+
 type Msg
     = UrlRequest UrlRequest
+    | GotRepositories (Result Http.Error (List GitHubRepo))
+
+
+type State
+    = Failure
+    | Loading
+    | Success (List GitHubRepo)
 
 
 type alias Model =
-    { session : Session, key : Key }
+    { session : Session
+    , key : Key
+    , state : State
+    }
 
 
 type alias Route =
@@ -30,7 +48,23 @@ route =
 
 init : Flags -> Url -> Key -> Route -> Maybe Session -> ( Model, Cmd Msg )
 init _ _ key _ session =
-    ( { session = Maybe.withDefault Root.initial session, key = key }, Cmd.none )
+    ( { session = Maybe.withDefault Root.initial session
+      , key = key
+      , state = Loading
+      }
+    , Http.get
+        { url = "https://api.github.com/users/tomato3713/repos?sort=updated"
+        , expect = Http.expectJson GotRepositories reposDecoder
+        }
+    )
+
+
+reposDecoder : Json.Decode.Decoder (List GitHubRepo)
+reposDecoder =
+    Json.Decode.map2 GitHubRepo
+        (Json.Decode.field "name" Json.Decode.string)
+        (Json.Decode.field "html_url" Json.Decode.string)
+        |> Json.Decode.list
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -43,6 +77,24 @@ update msg model =
 
                 External url ->
                     ( model, load url )
+
+        GotRepositories result ->
+            case result of
+                Ok fullRepos ->
+                    ( { session = model.session
+                      , key = model.key
+                      , state = Success fullRepos
+                      }
+                    , Cmd.none
+                    )
+
+                Err _ ->
+                    ( { session = model.session
+                      , key = model.key
+                      , state = Failure
+                      }
+                    , Cmd.none
+                    )
 
 
 subscriptions : Model -> Sub Msg
@@ -79,9 +131,43 @@ view model =
                         ]
                     ]
                 ]
+            , developments model
             ]
         ]
     }
+
+
+
+--- GitHub repository component
+
+
+viewRepositories : List GitHubRepo -> Html.Html msg
+viewRepositories repos =
+    repos
+        |> List.map (\l -> Html.li [] [ Html.text l.name ])
+        |> Html.ul []
+
+
+developments : Model -> Html.Html msg
+developments model =
+    Html.div
+        [ Html.Attributes.class "developments" ]
+        [ Html.div
+            [ Html.Attributes.class "developments-title" ]
+            [ Html.text "Developments" ]
+        , case model.state of
+            Failure ->
+                Html.text "I was unable to load repositories..."
+
+            Loading ->
+                Html.text "Loading..."
+
+            Success fullRepos ->
+                viewRepositories fullRepos
+        , Html.div
+            [ Html.Attributes.class "developments-item" ]
+            []
+        ]
 
 
 page : Root.Page Model Msg Route a
