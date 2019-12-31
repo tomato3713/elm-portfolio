@@ -3,14 +3,14 @@ module Portfolio.Page.Top exposing (Model, Msg, Route, page, route)
 import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation exposing (Key, load, pushUrl)
 import Html
-import Html.Attributes exposing (class, href)
+import Html.Attributes
 import Http
 import Json.Decode
 import Maybe exposing (Maybe(..))
 import Portfolio.Common
 import Portfolio.Root as Root exposing (Flags, Session)
 import Url exposing (Url)
-import Url.Parser as UrlParser exposing (Parser, map, s, top)
+import Url.Parser
 
 
 type alias GitHubRepo =
@@ -41,9 +41,9 @@ type alias Route =
     ()
 
 
-route : Parser (Route -> a) a
+route : Url.Parser.Parser (Route -> a) a
 route =
-    map () top
+    Url.Parser.map () Url.Parser.top
 
 
 init : Flags -> Url -> Key -> Route -> Maybe Session -> ( Model, Cmd Msg )
