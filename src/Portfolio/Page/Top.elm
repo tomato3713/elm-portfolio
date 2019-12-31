@@ -2,10 +2,10 @@ module Portfolio.Page.Top exposing (Model, Msg, Route, page, route)
 
 import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation exposing (Key, load, pushUrl)
-import Html exposing (Html, a, div, h1, p, text)
+import Html
 import Html.Attributes exposing (class, href)
 import Maybe exposing (Maybe(..))
-import Portfolio.Common exposing (link)
+import Portfolio.Common
 import Portfolio.Root as Root exposing (Flags, Session)
 import Url exposing (Url)
 import Url.Parser as UrlParser exposing (Parser, map, s, top)
@@ -54,9 +54,32 @@ view : Model -> Document Msg
 view model =
     { title = "Top - Portfolio"
     , body =
-        [ h1 [] [ text "Top" ]
-        , div [] [ p [] [ link "/about" "About" ] ]
-        , div [] [ p [] [ link "/products" "Products" ] ]
+        [ Html.h1 []
+            [ Html.text "Top" ]
+        , Portfolio.Common.menu
+        , Html.div []
+            [ Html.div
+                [ Html.Attributes.class "about-site" ]
+                [ Html.h2 []
+                    [ Html.text "About Site" ]
+                , Html.text "このWebサイトは、私の製作物、経験について記載する個人サイトです。"
+                ]
+            , Html.div
+                [ Html.Attributes.class "self-introduction"
+                ]
+                [ Html.h2 []
+                    [ Html.text "Self Introduction" ]
+                , Html.div []
+                    [ Html.dl []
+                        [ Portfolio.Common.definitionItem "Name" "Taichi Watanabe"
+                        , Portfolio.Common.definitionItem "学校" "国立大学法人 電気通信大学 (UEC)"
+                        , Portfolio.Common.definitionItem "Programming Languages" "Go, Java, Ruby, Python, JavaScript, CSS, Elm, C#, Lisp"
+                        , Portfolio.Common.definitionItem "Experience" "HP development, Wordpress, dotNet, API Client Library, Server Monitoring (Mackerel)"
+                        , Portfolio.Common.definitionItem "Works (Part time jobs)" "WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。株式会社はてなにてサマーインターンシップ (2019) に参加していました。"
+                        ]
+                    ]
+                ]
+            ]
         ]
     }
 
