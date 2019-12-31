@@ -15,6 +15,7 @@ import Url.Parser as UrlParser exposing (s, oneOf, Parser, parse, (</>))
 import Portfolio.Root as Root
 import Portfolio.Page.About
 import Portfolio.Page.NotFound
+import Portfolio.Page.Products
 import Portfolio.Page.Top
 
 
@@ -35,11 +36,13 @@ type Model = Model
 type Route
   = Route__Portfolio_Page_About Portfolio.Page.About.Route
   | Route__Portfolio_Page_NotFound Portfolio.Page.NotFound.Route
+  | Route__Portfolio_Page_Products Portfolio.Page.Products.Route
   | Route__Portfolio_Page_Top Portfolio.Page.Top.Route
 
 type RouteState
   = State__Portfolio_Page_About Portfolio.Page.About.Model
   | State__Portfolio_Page_NotFound Portfolio.Page.NotFound.Model
+  | State__Portfolio_Page_Products Portfolio.Page.Products.Model
   | State__Portfolio_Page_Top Portfolio.Page.Top.Model
 
 type Msg
@@ -47,6 +50,7 @@ type Msg
   | Navigate Url
   | Msg__Portfolio_Page_About Portfolio.Page.About.Msg
   | Msg__Portfolio_Page_NotFound Portfolio.Page.NotFound.Msg
+  | Msg__Portfolio_Page_Products Portfolio.Page.Products.Msg
   | Msg__Portfolio_Page_Top Portfolio.Page.Top.Msg
 
 currentSession : RouteState -> Root.Session
@@ -57,6 +61,9 @@ currentSession state = case state of
 
         State__Portfolio_Page_NotFound pageModel ->
           Portfolio.Page.NotFound.page.session pageModel 
+
+        State__Portfolio_Page_Products pageModel ->
+          Portfolio.Page.Products.page.session pageModel 
 
         State__Portfolio_Page_Top pageModel ->
           Portfolio.Page.Top.page.session pageModel 
@@ -81,6 +88,14 @@ update msg (Model model) =
                     (pmodel_, pcmd) ->
                       ( Model { model | state = State__Portfolio_Page_NotFound pmodel_ }
                       , Cmd.map Msg__Portfolio_Page_NotFound pcmd
+                      )
+        
+
+            State__Portfolio_Page_Products pmodel ->
+                  case Portfolio.Page.Products.page.update (Portfolio.Page.Products.page.onUrlRequest urlRequest) pmodel of
+                    (pmodel_, pcmd) ->
+                      ( Model { model | state = State__Portfolio_Page_Products pmodel_ }
+                      , Cmd.map Msg__Portfolio_Page_Products pcmd
                       )
         
 
@@ -111,6 +126,14 @@ update msg (Model model) =
                           )
                 
 
+                Route__Portfolio_Page_Products routeValue ->
+                      case Portfolio.Page.Products.page.init model.flags location model.key routeValue (Just (currentSession model.state)) of
+                        (initialModel, initialCmd) ->
+                          ( Model { model | state = State__Portfolio_Page_Products initialModel }
+                          , Cmd.map Msg__Portfolio_Page_Products initialCmd
+                          )
+                
+
                 Route__Portfolio_Page_Top routeValue ->
                       case Portfolio.Page.Top.page.init model.flags location model.key routeValue (Just (currentSession model.state)) of
                         (initialModel, initialCmd) ->
@@ -132,6 +155,12 @@ update msg (Model model) =
               (Model { model | state = State__Portfolio_Page_NotFound pageModel_ }, Cmd.map Msg__Portfolio_Page_NotFound pageCmd)
         
 
+    (Msg__Portfolio_Page_Products pageMsg, State__Portfolio_Page_Products pageModel) ->
+          case Portfolio.Page.Products.page.update pageMsg pageModel of
+            (pageModel_, pageCmd ) ->
+              (Model { model | state = State__Portfolio_Page_Products pageModel_ }, Cmd.map Msg__Portfolio_Page_Products pageCmd)
+        
+
     (Msg__Portfolio_Page_Top pageMsg, State__Portfolio_Page_Top pageModel) ->
           case Portfolio.Page.Top.page.update pageMsg pageModel of
             (pageModel_, pageCmd ) ->
@@ -148,6 +177,7 @@ view (Model model) = case model.state of
 
   State__Portfolio_Page_About m -> documentMap Msg__Portfolio_Page_About (Portfolio.Page.About.page.view m)
   State__Portfolio_Page_NotFound m -> documentMap Msg__Portfolio_Page_NotFound (Portfolio.Page.NotFound.page.view m)
+  State__Portfolio_Page_Products m -> documentMap Msg__Portfolio_Page_Products (Portfolio.Page.Products.page.view m)
   State__Portfolio_Page_Top m -> documentMap Msg__Portfolio_Page_Top (Portfolio.Page.Top.page.view m)
 
 matchers : Parser (Route -> a) a
@@ -155,6 +185,7 @@ matchers =
     oneOf
         [ UrlParser.map Route__Portfolio_Page_About Portfolio.Page.About.page.route
         , UrlParser.map Route__Portfolio_Page_NotFound Portfolio.Page.NotFound.page.route
+        , UrlParser.map Route__Portfolio_Page_Products Portfolio.Page.Products.page.route
         , UrlParser.map Route__Portfolio_Page_Top Portfolio.Page.Top.page.route
         ]
 
@@ -192,6 +223,16 @@ init flags location key =
                     , Cmd.map Msg__Portfolio_Page_NotFound initialCmd
                     )
                 
+          Route__Portfolio_Page_Products routeValue -> case Portfolio.Page.Products.page.init flags location key routeValue Nothing of
+                (initialModel, initialCmd) ->
+                    ( Model
+                        { state = State__Portfolio_Page_Products initialModel
+                        , key = key
+                        , flags = flags
+                        }
+                    , Cmd.map Msg__Portfolio_Page_Products initialCmd
+                    )
+                
           Route__Portfolio_Page_Top routeValue -> case Portfolio.Page.Top.page.init flags location key routeValue Nothing of
                 (initialModel, initialCmd) ->
                     ( Model
@@ -208,6 +249,7 @@ subscriptions (Model model) =
     case model.state of
         State__Portfolio_Page_About routeValue -> Sub.map Msg__Portfolio_Page_About (Portfolio.Page.About.page.subscriptions routeValue)
         State__Portfolio_Page_NotFound routeValue -> Sub.map Msg__Portfolio_Page_NotFound (Portfolio.Page.NotFound.page.subscriptions routeValue)
+        State__Portfolio_Page_Products routeValue -> Sub.map Msg__Portfolio_Page_Products (Portfolio.Page.Products.page.subscriptions routeValue)
         State__Portfolio_Page_Top routeValue -> Sub.map Msg__Portfolio_Page_Top (Portfolio.Page.Top.page.subscriptions routeValue)
 
 program : Program Root.Flags Model Msg

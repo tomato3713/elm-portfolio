@@ -56,6 +56,7 @@ view model =
     , body =
         [ h1 [] [ text "Top" ]
         , div [] [ p [] [ link "/about" "About" ] ]
+        , div [] [ p [] [ link "/products" "Products" ] ]
         ]
     }
 
