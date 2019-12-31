@@ -11,7 +11,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./node_modules/alchelmy/bin/alchelmy.js update && elm-app build",
+    "start": "elm-app start",
   },
   "keywords": [
     "portfolio"
