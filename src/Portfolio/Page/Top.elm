@@ -53,7 +53,7 @@ init _ _ key _ session =
       , state = Loading
       }
     , Http.get
-        { url = "https://api.github.com/users/tomato3713/repos?sort=updated"
+        { url = "https://api.github.com/users/tomato3713/repos?sort=updated&per_page=5"
         , expect = Http.expectJson GotRepositories reposDecoder
         }
     )
@@ -144,7 +144,7 @@ view model =
 viewRepositories : List GitHubRepo -> Html.Html msg
 viewRepositories repos =
     repos
-        |> List.map (\l -> Html.li [] [ Html.text l.name ])
+        |> List.map (\l -> Html.li [] [ Portfolio.Common.link l.html_url l.name ])
         |> Html.ul []
 
 
