@@ -126,10 +126,7 @@ view : Model -> Document Msg
 view model =
     { title = "Top - Portfolio"
     , body =
-        [ Html.h1
-            []
-            [ Html.text "Top" ]
-        , Portfolio.Common.menu
+        [ Portfolio.Common.header "Top"
         , Html.img
             [ Html.Attributes.class "top-header-image"
             , Html.Attributes.src "./top.jpg"
@@ -141,7 +138,7 @@ view model =
             , selfIntroduction
             , developments model
             ]
-        , Portfolio.Common.linklist
+        , Portfolio.Common.footer
         ]
     }
 

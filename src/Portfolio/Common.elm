@@ -1,4 +1,4 @@
-module Portfolio.Common exposing (definitionItem, link, linklist, menu)
+module Portfolio.Common exposing (definitionItem, footer, header, link, menu)
 
 import Html
 import Html.Attributes
@@ -84,4 +84,26 @@ linklist =
                     ]
                 ]
             ]
+        ]
+
+
+footer : Html.Html msg
+footer =
+    Html.div
+        [ Html.Attributes.class "footer" ]
+        [ Html.hr
+            []
+            []
+        , linklist
+        ]
+
+
+header : String -> Html.Html msg
+header title =
+    Html.div
+        [ Html.Attributes.class "header" ]
+        [ Html.h1
+            []
+            [ Html.text title ]
+        , menu
         ]

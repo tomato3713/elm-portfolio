@@ -56,10 +56,7 @@ view : Model -> Document Msg
 view _ =
     { title = "Products - Portfolio"
     , body =
-        [ Html.h1
-            []
-            [ Html.text "Products" ]
-        , Portfolio.Common.menu
+        [ Portfolio.Common.header "Products"
         , Html.div
             [ Html.Attributes.class "contents" ]
             [ comment
@@ -68,7 +65,7 @@ view _ =
             , pegeonQuest
             , json2texAddressLetter
             ]
-        , Portfolio.Common.linklist
+        , Portfolio.Common.footer
         ]
     }
 
