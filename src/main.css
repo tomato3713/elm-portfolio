@@ -16,6 +16,12 @@ body {
     color: #293c4b;
 }
 
+.contents {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
 h1 {
     font-size: 30px;
 }
@@ -45,7 +51,7 @@ dl.definition_list {
 }
 
 dl.definition_list div {
-    width: 46%;
+    width: 48%;
     margin: 0 5px;
     padding: 0 -10px;
 }

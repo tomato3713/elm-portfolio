@@ -106,10 +106,12 @@ view : Model -> Document Msg
 view model =
     { title = "Top - Portfolio"
     , body =
-        [ Html.h1 []
+        [ Html.h1
+            []
             [ Html.text "Top" ]
         , Portfolio.Common.menu
-        , Html.div []
+        , Html.div
+            [ Html.Attributes.class "contents" ]
             [ Html.div
                 [ Html.Attributes.class "about-site" ]
                 [ Html.h2 []
@@ -132,8 +134,8 @@ view model =
                     ]
                 ]
             , developments model
-            , Portfolio.Common.linklist
             ]
+        , Portfolio.Common.linklist
         ]
     }
 
