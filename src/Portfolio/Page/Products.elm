@@ -2,12 +2,12 @@ module Portfolio.Page.Products exposing (Model, Msg, Route, page, route)
 
 import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation exposing (Key, load, pushUrl)
-import Html exposing (h1, text)
+import Html
 import Maybe exposing (Maybe(..))
 import Portfolio.Common
 import Portfolio.Root as Root exposing (Flags, Session)
 import Url exposing (Url)
-import Url.Parser exposing (Parser, map, s)
+import Url.Parser
 
 
 type Msg
@@ -15,16 +15,18 @@ type Msg
 
 
 type alias Model =
-    { session : Session, key : Key }
+    { session : Session
+    , key : Key
+    }
 
 
 type alias Route =
     ()
 
 
-route : Parser (Route -> a) a
+route : Url.Parser.Parser (Route -> a) a
 route =
-    map () (s "products")
+    Url.Parser.map () (Url.Parser.s "products")
 
 
 init : Flags -> Url -> Key -> Route -> Maybe Session -> ( Model, Cmd Msg )
@@ -50,10 +52,12 @@ subscriptions _ =
 
 
 view : Model -> Document Msg
-view model =
+view _ =
     { title = "Products - Portfolio"
     , body =
-        [ h1 [] [ text "Products" ]
+        [ Html.h1
+            []
+            [ Html.text "Products" ]
         , Portfolio.Common.menu
         ]
     }
