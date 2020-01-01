@@ -16,6 +16,8 @@ import Url.Parser
 type alias GitHubRepo =
     { name : String
     , html_url : String
+    , language : Maybe String
+    , description : Maybe String
     }
 
 
@@ -61,9 +63,27 @@ init _ _ key _ session =
 
 reposDecoder : Json.Decode.Decoder (List GitHubRepo)
 reposDecoder =
-    Json.Decode.map2 GitHubRepo
-        (Json.Decode.field "name" Json.Decode.string)
-        (Json.Decode.field "html_url" Json.Decode.string)
+    Json.Decode.map4 GitHubRepo
+        (Json.Decode.field
+            "name"
+            Json.Decode.string
+        )
+        (Json.Decode.field
+            "html_url"
+            Json.Decode.string
+        )
+        (Json.Decode.maybe
+            (Json.Decode.field
+                "language"
+                Json.Decode.string
+            )
+        )
+        (Json.Decode.maybe
+            (Json.Decode.field
+                "description"
+                Json.Decode.string
+            )
+        )
         |> Json.Decode.list
 
 
@@ -158,10 +178,28 @@ viewRepositories repos =
         |> List.map
             (\l ->
                 Html.li
-                    [ Html.Attributes.class "card" ]
+                    [ Html.Attributes.class "dev-card" ]
                     [ Html.h1
                         []
                         [ Portfolio.Common.link l.html_url l.name ]
+                    , Html.p
+                        [ Html.Attributes.class "language" ]
+                        [ case l.language of
+                            Nothing ->
+                                Html.text ""
+
+                            Just lang ->
+                                Html.text lang
+                        ]
+                    , Html.p
+                        [ Html.Attributes.class "description" ]
+                        [ case l.description of
+                            Nothing ->
+                                Html.text ""
+
+                            Just desc ->
+                                Html.text desc
+                        ]
                     ]
             )
         |> Html.ul
