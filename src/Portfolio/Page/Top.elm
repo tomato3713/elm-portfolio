@@ -144,16 +144,25 @@ view model =
 viewRepositories : List GitHubRepo -> Html.Html msg
 viewRepositories repos =
     repos
-        |> List.map (\l -> Html.li [] [ Portfolio.Common.link l.html_url l.name ])
-        |> Html.ul []
+        |> List.map
+            (\l ->
+                Html.li
+                    [ Html.Attributes.class "card" ]
+                    [ Html.h1
+                        []
+                        [ Portfolio.Common.link l.html_url l.name ]
+                    ]
+            )
+        |> Html.ul
+            [ Html.Attributes.class "github-repositories-panel" ]
 
 
 developments : Model -> Html.Html msg
 developments model =
     Html.div
-        [ Html.Attributes.class "developments" ]
-        [ Html.div
-            [ Html.Attributes.class "developments-title" ]
+        [ Html.Attributes.class "github-repositories" ]
+        [ Html.h1
+            []
             [ Html.text "Developments" ]
         , case model.state of
             Failure ->
@@ -164,9 +173,6 @@ developments model =
 
             Success fullRepos ->
                 viewRepositories fullRepos
-        , Html.div
-            [ Html.Attributes.class "developments-item" ]
-            []
         ]
 
 

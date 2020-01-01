@@ -1,0 +1,27 @@
+ul.github-repositories-panel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: left;
+    width: 90%;
+}
+
+li.card {
+    float: left;
+    list-style: none;
+    margin: 5px;
+    padding: 0 6px;
+    width: 200px;
+    height: 140px;
+    background-color: #2d6963ba;
+    border-radius: 5px;
+}
+
+li.card h1 {
+    padding: 0;
+    font-size: 18px;
+}
+
+li.card a {
+    color: #e7edfb;
+}
