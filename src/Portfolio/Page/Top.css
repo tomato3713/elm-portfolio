@@ -4,6 +4,13 @@ ul.github-repositories-panel {
     justify-content: center;
     text-align: left;
     width: 90%;
+    margin: 0;
+}
+
+.github-repositories-comment {
+    font-size: 12px;
+    text-align: right;
+    width: 80%;
 }
 
 li.card {

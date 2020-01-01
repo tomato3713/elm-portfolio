@@ -24,11 +24,6 @@ h2 {
     font-size: 20px;
 }
 
-img {
-    margin: 20px 0;
-    max-width: 200px;
-}
-
 ul.top-menu {
     display: flex;
     flex-wrap: wrap;
@@ -57,7 +52,7 @@ dl.definition_list div {
 
 dl.definition_list dt {
     float: left;
-    width: 80px;
+    width: 70px;
     padding: 10px 0;
     border-top: solid 1px #A5A5A5;
     font-size: 12px;
@@ -66,7 +61,7 @@ dl.definition_list dt {
 
 dl.definition_list dd {
     float: left;
-    width: calc(100% - 80px);
+    width: calc(100% - 70px);
     padding: 10px 0;
     border-top: solid 1px #A5A5A5;
     font-size: 12px;
@@ -102,7 +97,6 @@ dl.definition_list dd {
 
 .linklist {
     width: 80%;
-    justify-content: center;
 }
 
 .linklist h1 {

@@ -174,6 +174,12 @@ developments model =
 
             Success fullRepos ->
                 viewRepositories fullRepos
+        , Html.div
+            [ Html.Attributes.class "github-repositories-comment" ]
+            [ Portfolio.Common.link
+                "https://github.com/tomato3713"
+                "show all GitHub repositories"
+            ]
         ]
 
 
