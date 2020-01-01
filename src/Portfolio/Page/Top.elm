@@ -53,7 +53,7 @@ init _ _ key _ session =
       , state = Loading
       }
     , Http.get
-        { url = "https://api.github.com/users/tomato3713/repos?sort=updated"
+        { url = "https://api.github.com/users/tomato3713/repos?sort=updated&per_page=5"
         , expect = Http.expectJson GotRepositories reposDecoder
         }
     )
@@ -122,12 +122,12 @@ view model =
                 [ Html.h2 []
                     [ Html.text "Self Introduction" ]
                 , Html.div []
-                    [ Html.dl []
+                    [ Html.dl
+                        [ Html.Attributes.class "definition_list" ]
                         [ Portfolio.Common.definitionItem "Name" "Taichi Watanabe"
-                        , Portfolio.Common.definitionItem "学校" "国立大学法人 電気通信大学 (UEC)"
                         , Portfolio.Common.definitionItem "Programming Languages" "Go, Java, Ruby, Python, JavaScript, CSS, Elm, C#, Lisp"
                         , Portfolio.Common.definitionItem "Experience" "HP development, Wordpress, dotNet, API Client Library, Server Monitoring (Mackerel)"
-                        , Portfolio.Common.definitionItem "Works (Part time jobs)" "WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。株式会社はてなにてサマーインターンシップ (2019) に参加していました。"
+                        , Portfolio.Common.definitionItem "Works (Part time jobs)" "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。"
                         ]
                     ]
                 ]
@@ -144,16 +144,25 @@ view model =
 viewRepositories : List GitHubRepo -> Html.Html msg
 viewRepositories repos =
     repos
-        |> List.map (\l -> Html.li [] [ Html.text l.name ])
-        |> Html.ul []
+        |> List.map
+            (\l ->
+                Html.li
+                    [ Html.Attributes.class "card" ]
+                    [ Html.h1
+                        []
+                        [ Portfolio.Common.link l.html_url l.name ]
+                    ]
+            )
+        |> Html.ul
+            [ Html.Attributes.class "github-repositories-panel" ]
 
 
 developments : Model -> Html.Html msg
 developments model =
     Html.div
-        [ Html.Attributes.class "developments" ]
-        [ Html.div
-            [ Html.Attributes.class "developments-title" ]
+        [ Html.Attributes.class "github-repositories" ]
+        [ Html.h1
+            []
             [ Html.text "Developments" ]
         , case model.state of
             Failure ->
@@ -164,9 +173,6 @@ developments model =
 
             Success fullRepos ->
                 viewRepositories fullRepos
-        , Html.div
-            [ Html.Attributes.class "developments-item" ]
-            []
         ]
 
 
