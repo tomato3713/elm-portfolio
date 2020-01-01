@@ -1,3 +1,8 @@
+.top-header-image {
+    width: 60%;
+    max-width: 800px;
+}
+
 ul.github-repositories-panel {
     display: flex;
     flex-wrap: wrap;
@@ -27,6 +32,7 @@ li.dev-card {
 li.dev-card h1 {
     padding: 0;
     font-size: 18px;
+    margin: 10px 0;
 }
 
 li.dev-card a {

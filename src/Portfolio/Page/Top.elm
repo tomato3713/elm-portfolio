@@ -130,42 +130,60 @@ view model =
             []
             [ Html.text "Top" ]
         , Portfolio.Common.menu
+        , Html.img
+            [ Html.Attributes.class "top-header-image"
+            , Html.Attributes.src "./top.jpg"
+            ]
+            []
         , Html.div
             [ Html.Attributes.class "contents" ]
-            [ Html.div
-                [ Html.Attributes.class "about-site" ]
-                [ Html.h2 []
-                    [ Html.text "About Site" ]
-                , Html.text "このWebサイトは、私の製作物、経験について記載する個人サイトです。"
-                ]
-            , Html.div
-                [ Html.Attributes.class "self-introduction"
-                ]
-                [ Html.h2 []
-                    [ Html.text "Self Introduction" ]
-                , Html.div []
-                    [ Html.dl
-                        [ Html.Attributes.class "definition_list" ]
-                        [ Portfolio.Common.definitionItem
-                            "Name"
-                            "Taichi Watanabe"
-                        , Portfolio.Common.definitionItem
-                            "Programming Languages"
-                            "Go, Java, Ruby, Python, JavaScript, CSS, Elm, C#, Lisp"
-                        , Portfolio.Common.definitionItem
-                            "Experience"
-                            "HP development, Wordpress, dotNet, API Client Library, Server Monitoring (Mackerel)"
-                        , Portfolio.Common.definitionItem
-                            "Works (Part time jobs)"
-                            "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。"
-                        ]
-                    ]
-                ]
+            [ aboutSite
+            , selfIntroduction
             , developments model
             ]
         , Portfolio.Common.linklist
         ]
     }
+
+
+aboutSite : Html.Html msg
+aboutSite =
+    Html.div
+        [ Html.Attributes.class "about-site" ]
+        [ Html.h1
+            []
+            [ Html.text "About Site" ]
+        , Html.text "このWebサイトは、私の製作物、経験について記載する個人サイトです。"
+        ]
+
+
+selfIntroduction : Html.Html msg
+selfIntroduction =
+    Html.div
+        [ Html.Attributes.class "self-introduction"
+        ]
+        [ Html.h1
+            []
+            [ Html.text "Self Introduction" ]
+        , Html.div
+            []
+            [ Html.dl
+                [ Html.Attributes.class "definition_list" ]
+                [ Portfolio.Common.definitionItem
+                    "Name"
+                    "Taichi Watanabe"
+                , Portfolio.Common.definitionItem
+                    "Programming Languages"
+                    "Go, Java, Ruby, Python, JavaScript, CSS, Elm, C#, Lisp"
+                , Portfolio.Common.definitionItem
+                    "Experience"
+                    "HP development, Wordpress, dotNet, API Client Library, Server Monitoring (Mackerel)"
+                , Portfolio.Common.definitionItem
+                    "Works (Part time jobs)"
+                    "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。"
+                ]
+            ]
+        ]
 
 
 

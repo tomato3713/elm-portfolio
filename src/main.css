@@ -22,8 +22,9 @@ body {
     justify-content: center;
 }
 
-h1 {
+.contents h1 {
     font-size: 30px;
+    margin: 40px 0 20px 0;
 }
 
 h2 {
@@ -48,6 +49,8 @@ dl.definition_list {
     flex-wrap: wrap;
     justify-content: center;
     text-align: left;
+    width: 80%;
+    margin: 0 auto;
 }
 
 dl.definition_list div {
@@ -58,7 +61,7 @@ dl.definition_list div {
 
 dl.definition_list dt {
     float: left;
-    width: 70px;
+    width: 60px;
     padding: 10px 0;
     border-top: solid 1px #A5A5A5;
     font-size: 12px;
@@ -67,8 +70,9 @@ dl.definition_list dt {
 
 dl.definition_list dd {
     float: left;
-    width: calc(100% - 70px);
+    width: calc(100% - 60px);
     padding: 10px 0;
+    margin: auto 7px auto 10px;
     border-top: solid 1px #A5A5A5;
     font-size: 12px;
 }
