@@ -20,8 +20,11 @@ definitionItem term text =
         ]
 
 
+menu : Html.Html msg
 menu =
-    Html.div []
-        [ Html.p [] [ link "/" "Top" ]
-        , Html.p [] [ link "/products" "Products" ]
+    Html.ul
+        [ Html.Attributes.class "top-menu"
+        ]
+        [ Html.li [] [ link "/" "Top" ]
+        , Html.li [] [ link "/products" "Products" ]
         ]

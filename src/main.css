@@ -29,20 +29,34 @@ img {
     max-width: 200px;
 }
 
-dl.definition_list{
+ul.top-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    text-align: left;
+    width: 80%;
+}
+
+ul.top-menu li {
+    float: left;
+    list-style: none;
+    margin: 0 10px;
+}
+
+dl.definition_list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     text-align: left;
 }
 
-dl.definition_list div{
+dl.definition_list div {
     width: 46%;
     margin: 0 5px;
     padding: 0 -10px;
 }
 
-dl.definition_list dt{
+dl.definition_list dt {
     float: left;
     width: 80px;
     padding: 10px 0;
@@ -51,7 +65,7 @@ dl.definition_list dt{
     font-weight: bold;
 }
 
-dl.definition_list dd{
+dl.definition_list dd {
     float: left;
     width: calc(100% - 80px);
     padding: 10px 0;
