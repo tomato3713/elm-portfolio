@@ -126,10 +126,18 @@ view model =
                 , Html.div []
                     [ Html.dl
                         [ Html.Attributes.class "definition_list" ]
-                        [ Portfolio.Common.definitionItem "Name" "Taichi Watanabe"
-                        , Portfolio.Common.definitionItem "Programming Languages" "Go, Java, Ruby, Python, JavaScript, CSS, Elm, C#, Lisp"
-                        , Portfolio.Common.definitionItem "Experience" "HP development, Wordpress, dotNet, API Client Library, Server Monitoring (Mackerel)"
-                        , Portfolio.Common.definitionItem "Works (Part time jobs)" "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。"
+                        [ Portfolio.Common.definitionItem
+                            "Name"
+                            "Taichi Watanabe"
+                        , Portfolio.Common.definitionItem
+                            "Programming Languages"
+                            "Go, Java, Ruby, Python, JavaScript, CSS, Elm, C#, Lisp"
+                        , Portfolio.Common.definitionItem
+                            "Experience"
+                            "HP development, Wordpress, dotNet, API Client Library, Server Monitoring (Mackerel)"
+                        , Portfolio.Common.definitionItem
+                            "Works (Part time jobs)"
+                            "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。"
                         ]
                     ]
                 ]
