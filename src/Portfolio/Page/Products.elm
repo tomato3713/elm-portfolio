@@ -59,6 +59,7 @@ view _ =
             []
             [ Html.text "Products" ]
         , Portfolio.Common.menu
+        , Portfolio.Common.linklist
         ]
     }
 

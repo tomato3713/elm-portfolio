@@ -33,7 +33,6 @@ ul.top-menu {
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
-    text-align: left;
     width: 80%;
 }
 
@@ -101,3 +100,29 @@ dl.definition_list dd {
     content: "";
 }
 
+.linklist {
+    width: 80%;
+    justify-content: center;
+}
+
+.linklist h1 {
+    font-size: 18px;
+    text-align: right;
+}
+
+.linklist ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+}
+
+.linklist li {
+    float: left;
+    list-style: none;
+}
+
+.linklist li+ li {
+    border-left: 1px solid #333;
+    margin: 0 0 0 10px;
+    padding: 0 0 0 10px;
+}

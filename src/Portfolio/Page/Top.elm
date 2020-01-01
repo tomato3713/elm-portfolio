@@ -132,6 +132,7 @@ view model =
                     ]
                 ]
             , developments model
+            , Portfolio.Common.linklist
             ]
         ]
     }
