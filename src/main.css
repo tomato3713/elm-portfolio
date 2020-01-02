@@ -32,16 +32,37 @@ h2 {
 }
 
 ul.top-menu {
+    font-size: 1em;
     display: flex;
     flex-wrap: wrap;
     justify-content: right;
     width: 80%;
+    margin: 13px 0;
 }
 
 ul.top-menu li {
     float: left;
     list-style: none;
-    margin: 0 10px;
+    border-right: 1px solid #bbbbbb;
+    background-color: #4aa30f;
+    margin: 0;
+    padding: 7px 6px;
+}
+
+ul.top-menu li:hover {
+    background-color: #D41319;
+}
+
+ul.top-menu li:lastchild {
+    border-right: none;
+}
+
+ul.top-menu li a {
+    display: block;
+    text-align: center;
+    padding: 5px 9px;
+    text-decoration: none;
+    color: #ffb;
 }
 
 dl.definition_list {

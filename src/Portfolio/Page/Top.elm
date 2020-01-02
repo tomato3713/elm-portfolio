@@ -124,9 +124,9 @@ subscriptions _ =
 
 view : Model -> Document Msg
 view model =
-    { title = "Top - Portfolio"
+    { title = "tomato - Home"
     , body =
-        [ Portfolio.Common.header "Top"
+        [ Portfolio.Common.header "Home"
         , Html.img
             [ Html.Attributes.class "top-header-image"
             , Html.Attributes.src "./top.jpg"
