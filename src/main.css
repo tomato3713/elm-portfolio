@@ -31,33 +31,31 @@ h2 {
     font-size: 20px;
 }
 
-ul.top-menu {
-    font-size: 1em;
+div.top-menu {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: right;
-    width: 80%;
+    justify-content: left;
+    font-size: 1em;
     margin: 13px 0;
+    background-color: #4aa30f;
 }
 
-ul.top-menu li {
-    float: left;
+div.top-menu div {
     list-style: none;
     border-right: 1px solid #bbbbbb;
-    background-color: #4aa30f;
     margin: 0;
     padding: 7px 6px;
+    width: 100%;
 }
 
-ul.top-menu li:hover {
+div.top-menu div:hover {
     background-color: #D41319;
 }
 
-ul.top-menu li:lastchild {
+div.top-menu div.lastchild {
     border-right: none;
 }
 
-ul.top-menu li a {
+div.top-menu div a {
     display: block;
     text-align: center;
     padding: 5px 9px;
