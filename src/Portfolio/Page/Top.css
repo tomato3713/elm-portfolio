@@ -1,6 +1,6 @@
 .top-header-image {
-    width: 60%;
-    max-width: 800px;
+    height: 30vh;
+    min-height: 220px;
 }
 
 ul.github-repositories-panel {
