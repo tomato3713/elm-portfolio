@@ -6,18 +6,22 @@ import Maybe exposing (Maybe)
 import Url exposing (Url)
 import Url.Parser exposing (Parser)
 
-type alias Flags
-  = ()
+
+type alias Flags =
+    ()
+
+
 
 -- Application global state type.
 
 
-type alias Session
-  = {}
+type alias Session =
+    {}
 
 
 initial : Session
-initial = {}
+initial =
+    {}
 
 
 type alias Page model msg route a =
@@ -29,4 +33,3 @@ type alias Page model msg route a =
     , onUrlRequest : UrlRequest -> msg
     , session : model -> Session
     }
-
