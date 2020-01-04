@@ -22,11 +22,14 @@ definitionItem term text =
 
 menu : Html.Html msg
 menu =
-    Html.ul
-        [ Html.Attributes.class "top-menu"
-        ]
-        [ Html.li [] [ link "/" "Top" ]
-        , Html.li [] [ link "/products" "Products" ]
+    Html.div
+        [ Html.Attributes.class "top-menu" ]
+        [ Html.div
+            []
+            [ link "/" "Home" ]
+        , Html.div
+            [ Html.Attributes.class "lastchild" ]
+            [ link "/products" "Products" ]
         ]
 
 

@@ -52,7 +52,7 @@ subscriptions _ =
 
 view : Model -> Document Msg
 view _ =
-    { title = "NotFound - Portfolio"
+    { title = "tomato - NotFound"
     , body =
         [ Html.h1
             []

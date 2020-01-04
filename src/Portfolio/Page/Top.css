@@ -5,11 +5,10 @@
 
 ul.github-repositories-panel {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    text-align: left;
-    width: 90%;
-    margin: 0;
+    width: 100%;
+    padding: 0;
+    flex-wrap: wrap;
 }
 
 .github-repositories-comment {
@@ -24,9 +23,10 @@ li.dev-card {
     margin: 5px;
     padding: 0 6px;
     width: 200px;
-    height: 140px;
+    height: 120px;
     background-color: #2d6963ba;
     border-radius: 5px;
+    text-align: left;
 }
 
 li.dev-card h1 {
@@ -48,4 +48,13 @@ li.dev-card .description {
     margin: 4px 0;
     font-size: 12px;
     color: #060607db;
+}
+
+/* 768px以下 */
+@media only screen and (max-width: 48em) {
+    li.dev-card {
+        width: 70%;
+        height: 80px;
+        margin: 2px auto;
+    }
 }
