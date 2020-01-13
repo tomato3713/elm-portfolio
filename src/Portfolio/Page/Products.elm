@@ -129,13 +129,19 @@ pegeonQuest =
             [ Html.Attributes.class "products-content-title" ]
             [ Html.text "Pegeon Quest" ]
         , Html.div
-            []
+            [ Html.Attributes.class "products-content-body" ]
             [ Portfolio.Common.link
                 "https://github.com/tomato3713/pegeon-quest"
                 "Repository"
-            , Html.p
+            , Html.div
                 []
-                [ Html.text "大学の授業「メディア情報学プログラミング演習」の課題として3人のグループで製作した作品です。「鳩のような鳩ではない何かを育成する」をコンセプトに育成ゲームとタイピングゲームを融合させたゲームとなっています。MVCモデルを採用し、Javaで開発を行いました。"
+                [ Html.img
+                    [ Html.Attributes.src "https://raw.githubusercontent.com/tomato3713/pegeon-quest/master/img/revolution.png" ]
+                    []
+                , Html.p
+                    []
+                    [ Html.text "大学の授業「メディア情報学プログラミング演習」の課題として3人のグループで製作した作品です。「鳩のような鳩ではない何かを育成する」をコンセプトに育成ゲームとタイピングゲームを融合させたゲームとなっています。MVCモデルを採用し、Javaで開発を行いました。"
+                    ]
                 ]
             ]
         ]
@@ -149,7 +155,7 @@ json2texAddressLetter =
             [ Html.Attributes.class "products-content-title" ]
             [ Html.text "json2tex address letter" ]
         , Html.div
-            []
+            [ Html.Attributes.class "products-content-body" ]
             [ Portfolio.Common.link
                 "https://github.com/tomato3713/json2tex-address-letter"
                 "Repository"
@@ -170,7 +176,7 @@ goSoumuradio =
             [ Html.Attributes.class "products-content-title" ]
             [ Html.text "go-soumuradio package" ]
         , Html.div
-            []
+            [ Html.Attributes.class "products-content-body" ]
             [ Portfolio.Common.link
                 "https://github.com/tomato3713/go-soumuradio"
                 "Repository"
