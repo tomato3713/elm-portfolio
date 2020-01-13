@@ -150,7 +150,9 @@ aboutSite =
         [ Html.h1
             []
             [ Html.text "About Site" ]
-        , Html.text "このWebサイトは、私の製作物、経験について記載する個人サイトです。"
+        , Html.text "このWebサイトは、私の製作物、経験について記載する個人サイトです。このWebサイトは、Elm製のSPAジェネレータである"
+        , Portfolio.Common.link "https://github.com/aratama/alchelmy" "Alchelmly"
+        , Html.text "を利用して作成されています"
         ]
 
 

@@ -100,13 +100,22 @@ cwWebRunner =
             [ Html.Attributes.class "products-content-title" ]
             [ Html.text "CW Web Runner / Tutor" ]
         , Html.div
-            []
+            [ Html.Attributes.class "products-content-body" ]
             [ Portfolio.Common.link
                 "https://github.com/tomato3713/cw_for_web"
                 "Repository"
-            , Html.p
+            , Html.div
                 []
-                [ Html.text "モールス符号の聞き取り練習を行うソフトウェア及びwebサイトはいくつかあります。しかし、それらはゲーム性にかける、限られたOSでしか使用できないといった問題がありました。そのため、WebブラウザをプラットフォームとすることでDesktopとスマートフォンの両方で同じ使用感で練習ができ、かつゲーム性を持ったモールス符号聞き取り練習サイトを開発しました。"
+                [ Html.img
+                    [ Html.Attributes.src "./cw-web-runner.jpg"
+                    ]
+                    []
+                , Html.p
+                    []
+                    [ Html.text "モールス符号の聞き取り練習を行うソフトウェア及びwebサイトはいくつかあります。しかし、それらはゲーム性にかける、限られたOSでしか使用できないといった問題がありました。そのため、WebブラウザをプラットフォームとすることでDesktopとスマートフォンの両方で同じ使用感で練習ができ、かつゲーム性を持った"
+                    , Portfolio.Common.link "https://homedm.eim.world/cw_for_web/" "モールス符号聞き取り練習サイト"
+                    , Html.text "を開発しました。"
+                    ]
                 ]
             ]
         ]
