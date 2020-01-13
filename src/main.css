@@ -36,19 +36,15 @@ div.top-menu {
     justify-content: left;
     font-size: 1em;
     margin: 13px 0;
-    background-color: #4aa30f;
+    background-color: #68A3A1;
 }
 
 div.top-menu div {
     list-style: none;
     border-right: 1px solid #bbbbbb;
     margin: 0;
-    padding: 7px 6px;
+    padding: 0;
     width: 100%;
-}
-
-div.top-menu div:hover {
-    background-color: #D41319;
 }
 
 div.top-menu div.lastchild {
@@ -58,9 +54,18 @@ div.top-menu div.lastchild {
 div.top-menu div a {
     display: block;
     text-align: center;
-    padding: 5px 9px;
+    padding: 8px 9px;
     text-decoration: none;
-    color: #ffb;
+    color: #FFFFFF;
+}
+
+div.top-menu div:hover {
+    background-color: #FFFFFF;
+    color: #68A3A1;
+}
+
+div.top-menu div:hover a {
+    color: #68A3A1;
 }
 
 dl.definition_list {
