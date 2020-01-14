@@ -150,9 +150,14 @@ aboutSite =
         [ Html.h1
             []
             [ Html.text "About Site" ]
-        , Html.text "このWebサイトは、私の製作物、経験について記載する個人サイトです。このWebサイトは、Elm製のSPAジェネレータである"
+        , Html.text "ここは、とまと ("
+        , Portfolio.Common.link
+            "https://twitter.com/tomato3713"
+            "@tomato3713"
+        , Html.text ") のポートフォリオサイトです。このWebサイトは、Elm製のSPAジェネレータである"
         , Portfolio.Common.link "https://github.com/aratama/alchelmy" "Alchelmly"
         , Html.text "を利用して作成されています"
+        , Html.text "どうぞ、お茶でも飲みながらゆったりとご覧くださいませ。"
         ]
 
 
@@ -180,6 +185,12 @@ selfIntroduction =
                 , Portfolio.Common.definitionItem
                     "Works (Part time jobs)"
                     "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。"
+                , Portfolio.Common.definitionItem
+                    "Interests"
+                    "Software Engineering, Server Monitoring, Virtual Reality"
+                , Portfolio.Common.definitionItem
+                    "Hobby"
+                    "Programming, Camera etc"
                 ]
             ]
         ]
@@ -230,6 +241,11 @@ developments model =
         [ Html.h1
             []
             [ Html.text "Developments" ]
+        , Html.p
+            []
+            [ Html.text "2019年度からは主にGo言語を用いて、OSS開発を行っています。"
+            , Html.text "Go言語など実用性とシンプルさを重視した言語を好んで使用します。"
+            ]
         , case model.state of
             Failure ->
                 Html.text "I was unable to load repositories..."

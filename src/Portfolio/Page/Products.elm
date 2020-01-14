@@ -162,7 +162,7 @@ json2texAddressLetter =
             , Html.p
                 []
                 [ Html.text
-                    "json形式の宛名リストを読み込み、宛名面のPDFを出力します。LaTex を用いてPDFを生成します。"
+                    "json形式の宛名リストを読み込み、宛名面のPDFを出力します。LaTex を用いてPDFを生成します。大学講義の課題作品として製作致しました。JSONのパーサとしては、Parsonを使用しています。"
                 ]
             ]
         ]
