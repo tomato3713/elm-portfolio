@@ -58,7 +58,7 @@ li.dev-card .description {
 /* 768px以下 */
 @media only screen and (max-width: 48em) {
     li.dev-card {
-        width: 70%;
+        width: 90%;
         height: 97px;
         margin: 2px auto;
     }

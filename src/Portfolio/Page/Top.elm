@@ -183,8 +183,8 @@ selfIntroduction =
                     "Experience"
                     "HP development, Wordpress, dotNet, API Client Library, Server Monitoring (Mackerel)"
                 , Portfolio.Common.definitionItem
-                    "Works (Part time jobs)"
-                    "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。"
+                    "Works"
+                    "現在は、WEBSYS (社会人向けIT教育プログラム) のスタッフをしています。また、趣味としてGo言語を中心に用いたOSS開発を行っています。2019年度はてなサマーインターンシップに参加しました。"
                 , Portfolio.Common.definitionItem
                     "Interests"
                     "Software Engineering, Server Monitoring, Virtual Reality"
