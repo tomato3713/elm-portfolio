@@ -126,7 +126,8 @@ view : Model -> Document Msg
 view model =
     { title = "tomato - Home"
     , body =
-        [ Portfolio.Common.header "Home"
+        [ Portfolio.Common.loadingAnimation
+        , Portfolio.Common.header "Home"
         , Html.img
             [ Html.Attributes.class "top-header-image"
             , Html.Attributes.src "./top.jpg"

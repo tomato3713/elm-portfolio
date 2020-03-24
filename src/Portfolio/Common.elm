@@ -1,4 +1,4 @@
-module Portfolio.Common exposing (definitionItem, footer, header, link, menu)
+module Portfolio.Common exposing (definitionItem, footer, header, link, loadingAnimation, menu)
 
 import Html
 import Html.Attributes
@@ -109,4 +109,14 @@ header title =
             []
             [ Html.text title ]
         , menu
+        ]
+
+
+loadingAnimation : Html.Html msg
+loadingAnimation =
+    Html.div
+        [ Html.Attributes.class "loading" ]
+        [ Html.div
+            [ Html.Attributes.class "spinner" ]
+            []
         ]
