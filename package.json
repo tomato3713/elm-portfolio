@@ -1,5 +1,5 @@
 {
-  "name": "elm-portfolio",
+  "name": "tomato-website",
   "version": "1.0.0",
   "description": "This project is bootstrapped with [Create Elm App](https://github.com/halfzebra/create-elm-app).",
   "main": "index.js",
@@ -22,10 +22,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tomato3713/elm-portfolio.git"
+    "url": "git+https://github.com/tomato3713/tomato3713.github.io.git"
   },
   "bugs": {
-    "url": "https://github.com/tomato3713/elm-portfolio/issues"
+    "url": "https://github.com/tomato3713/tomato3713.github.io/issues"
   },
-  "homepage": "https://github.com/tomato3713/elm-portfolio#readme"
+  "homepage": "https://github.com/tomato3713/tomato3713.github.io#readme"
 }
