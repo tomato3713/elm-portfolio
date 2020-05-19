@@ -124,7 +124,7 @@ subscriptions _ =
 
 view : Model -> Document Msg
 view model =
-    { title = "tomato - Home"
+    { title = "eim-world - Home"
     , body =
         [ Portfolio.Common.header "Home"
         , Html.img

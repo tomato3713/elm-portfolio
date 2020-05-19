@@ -54,7 +54,7 @@ subscriptions _ =
 
 view : Model -> Document Msg
 view _ =
-    { title = "tomato - Products"
+    { title = "eim-world - Products"
     , body =
         [ Portfolio.Common.header "Products"
         , Html.div
