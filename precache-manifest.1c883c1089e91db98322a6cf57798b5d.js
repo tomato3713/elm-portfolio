@@ -1,5 +1,9 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "12a3983c9a553685a6753b7ccfd7b63d",
+    "url": "/404.html"
+  },
+  {
     "revision": "134d60c3bf4710e972aae195284348a0",
     "url": "/cw-web-runner.jpg"
   },
@@ -8,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/favicon.ico"
   },
   {
-    "revision": "d185344942c363da75a3fe26121ecde5",
+    "revision": "59e80f6dcd1ad74c2610dbcac205384a",
     "url": "/index.html"
   },
   {
