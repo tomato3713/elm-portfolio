@@ -1,10 +1,11 @@
 module Portfolio.Page.NotFound exposing (Model, Msg, Route, page, route)
 
 import Browser exposing (Document, UrlRequest(..))
-import Browser.Events exposing (onAnimationFrameDelta)
+import Browser.Events
 import Browser.Navigation exposing (Key, load, pushUrl)
 import Html
 import Html.Attributes
+import Keyboard
 import Maybe exposing (Maybe(..))
 import Portfolio.Common
 import Portfolio.Root as Root exposing (Flags, Session)
@@ -17,12 +18,14 @@ import Url.Parser
 type Msg
     = UrlRequest UrlRequest
     | Frame Float
+    | KeyMsg Keyboard.Msg
 
 
 type alias Model =
     { session : Session
     , key : Key
     , count : Float
+    , pressedKeys : List Keyboard.Key
     }
 
 
@@ -37,7 +40,13 @@ route =
 
 init : Flags -> Url -> Key -> Route -> Maybe Session -> ( Model, Cmd Msg )
 init _ _ key _ session =
-    ( { session = Maybe.withDefault Root.initial session, key = key, count = 0 }, Cmd.none )
+    ( { session = Maybe.withDefault Root.initial session
+      , key = key
+      , count = 0
+      , pressedKeys = []
+      }
+    , Cmd.none
+    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -54,10 +63,18 @@ update msg model =
         Frame count ->
             ( { model | count = count + 1 }, Cmd.none )
 
+        KeyMsg keyMsg ->
+            ( { model | pressedKeys = Keyboard.update keyMsg model.pressedKeys }
+            , Cmd.none
+            )
+
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Browser.Events.onAnimationFrameDelta Frame
+    Sub.batch
+        [ Browser.Events.onAnimationFrameDelta Frame
+        , Sub.map KeyMsg Keyboard.subscriptions
+        ]
 
 
 view : Model -> Document Msg
@@ -73,15 +90,15 @@ view model =
             [ Html.div
                 []
                 [ Html.text ("Count: " ++ String.fromFloat model.count) ]
-            , viewSvg
+            , gameBox model
             ]
         , Portfolio.Common.footer
         ]
     }
 
 
-viewSvg : Html.Html msg
-viewSvg =
+gameBox : Model -> Html.Html msg
+gameBox model =
     Svg.svg
         [ Html.Attributes.width 400
         , Html.Attributes.height 400
@@ -97,14 +114,28 @@ viewSvg =
             , Svg.Attributes.fill "blue"
             ]
             []
-        , Svg.circle
-            [ Svg.Attributes.cx "60"
-            , Svg.Attributes.cy "60"
-            , Svg.Attributes.r "20"
-            , Svg.Attributes.fill "red"
-            ]
-            []
+        , ball model
         ]
+
+
+ball : Model -> Html.Html msg
+ball model =
+    Svg.circle
+        [ Svg.Attributes.cx "60"
+        , Svg.Attributes.cy "60"
+        , Svg.Attributes.r "20"
+        , if isChangeColor model then
+            Svg.Attributes.fill "blue"
+
+          else
+            Svg.Attributes.fill "red"
+        ]
+        []
+
+
+isChangeColor : Model -> Bool
+isChangeColor model =
+    List.member Keyboard.Spacebar model.pressedKeys
 
 
 page : Root.Page Model Msg Route a
