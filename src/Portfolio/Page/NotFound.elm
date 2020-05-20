@@ -2,16 +2,16 @@ module Portfolio.Page.NotFound exposing (Model, Msg, Route, page, route)
 
 import Browser exposing (Document, UrlRequest(..))
 import Browser.Events
-import Browser.Navigation exposing (Key, load, pushUrl)
+import Browser.Navigation
 import Html
 import Html.Attributes
 import Keyboard
 import Maybe exposing (Maybe(..))
 import Portfolio.Common
-import Portfolio.Root as Root exposing (Flags, Session)
+import Portfolio.Root as Root
 import Svg
 import Svg.Attributes
-import Url exposing (Url)
+import Url
 import Url.Parser
 
 
@@ -22,10 +22,10 @@ type Msg
 
 
 type alias Model =
-    { session : Session
-    , key : Key
-    , count : Float
+    { session : Root.Session
+    , key : Browser.Navigation.Key
     , pressedKeys : List Keyboard.Key
+    , speed : Float
     }
 
 
@@ -38,12 +38,12 @@ route =
     Url.Parser.custom "NOTHING" (\_ -> Nothing)
 
 
-init : Flags -> Url -> Key -> Route -> Maybe Session -> ( Model, Cmd Msg )
+init : Root.Flags -> Url.Url -> Browser.Navigation.Key -> Route -> Maybe Root.Session -> ( Model, Cmd Msg )
 init _ _ key _ session =
     ( { session = Maybe.withDefault Root.initial session
       , key = key
-      , count = 0
       , pressedKeys = []
+      , speed = 0
       }
     , Cmd.none
     )
@@ -55,13 +55,13 @@ update msg model =
         UrlRequest urlRequest ->
             case urlRequest of
                 Internal url ->
-                    ( model, pushUrl model.key (Url.toString url) )
+                    ( model, Browser.Navigation.pushUrl model.key (Url.toString url) )
 
                 External url ->
-                    ( model, load url )
+                    ( model, Browser.Navigation.load url )
 
-        Frame count ->
-            ( { model | count = count + 1 }, Cmd.none )
+        Frame speed ->
+            ( { model | speed = speed + 1 }, Cmd.none )
 
         KeyMsg keyMsg ->
             ( { model | pressedKeys = Keyboard.update keyMsg model.pressedKeys }
@@ -87,10 +87,7 @@ view model =
             [ Html.text "404 Not found." ]
         , Html.div
             [ Html.Attributes.class "contents" ]
-            [ Html.div
-                []
-                [ Html.text ("Count: " ++ String.fromFloat model.count) ]
-            , gameBox model
+            [ gameBox model
             ]
         , Portfolio.Common.footer
         ]
@@ -111,31 +108,11 @@ gameBox model =
             , Svg.Attributes.height "100"
             , Svg.Attributes.rx "15"
             , Svg.Attributes.ry "15"
-            , Svg.Attributes.fill "blue"
+            , Svg.Attributes.fill "rgb(192 192 192)"
             ]
             []
-        , ball model
+        , Portfolio.Common.blackCat
         ]
-
-
-ball : Model -> Html.Html msg
-ball model =
-    Svg.circle
-        [ Svg.Attributes.cx "60"
-        , Svg.Attributes.cy "60"
-        , Svg.Attributes.r "20"
-        , if isChangeColor model then
-            Svg.Attributes.fill "blue"
-
-          else
-            Svg.Attributes.fill "red"
-        ]
-        []
-
-
-isChangeColor : Model -> Bool
-isChangeColor model =
-    List.member Keyboard.Spacebar model.pressedKeys
 
 
 page : Root.Page Model Msg Route a
