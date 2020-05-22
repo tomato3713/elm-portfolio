@@ -1,4 +1,4 @@
-module Portfolio.Common exposing (blackCat, definitionItem, footer, header, link, menu)
+module Portfolio.Common exposing (Cat, blackCat, definitionItem, footer, header, link, menu)
 
 import Html
 import Html.Attributes
@@ -112,6 +112,14 @@ header title =
             [ Html.text title ]
         , menu
         ]
+
+
+type alias Cat =
+    { x : Float
+    , y : Float
+    , ax : Float
+    , ay : Float
+    }
 
 
 blackCat : Html.Html msg

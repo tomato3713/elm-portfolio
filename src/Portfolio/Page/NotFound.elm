@@ -18,14 +18,13 @@ import Url.Parser
 type Msg
     = UrlRequest UrlRequest
     | Frame Float
-    | KeyMsg Keyboard.Msg
 
 
 type alias Model =
     { session : Root.Session
     , key : Browser.Navigation.Key
     , pressedKeys : List Keyboard.Key
-    , speed : Float
+    , cat : Portfolio.Common.Cat
     }
 
 
@@ -43,7 +42,12 @@ init _ _ key _ session =
     ( { session = Maybe.withDefault Root.initial session
       , key = key
       , pressedKeys = []
-      , speed = 0
+      , cat =
+            { x = 37
+            , y = 37
+            , ax = 0
+            , ay = 0
+            }
       }
     , Cmd.none
     )
@@ -55,16 +59,44 @@ update msg model =
         UrlRequest urlRequest ->
             case urlRequest of
                 Internal url ->
-                    ( model, Browser.Navigation.pushUrl model.key (Url.toString url) )
+                    ( model
+                    , Browser.Navigation.pushUrl model.key (Url.toString url)
+                    )
 
                 External url ->
-                    ( model, Browser.Navigation.load url )
+                    ( model
+                    , Browser.Navigation.load url
+                    )
 
-        Frame speed ->
-            ( { model | speed = speed + 1 }, Cmd.none )
+        Frame _ ->
+            ( { model
+                | cat =
+                    { x =
+                        if 0 < model.cat.x && model.cat.x < 70 then
+                            model.cat.x + model.cat.ax
 
-        KeyMsg keyMsg ->
-            ( { model | pressedKeys = Keyboard.update keyMsg model.pressedKeys }
+                        else
+                            model.cat.x
+                    , y =
+                        if 0 < model.cat.y && model.cat.y < 70 then
+                            model.cat.y + model.cat.ay
+
+                        else
+                            model.cat.y
+                    , ax =
+                        if model.cat.ax > 0 then
+                            model.cat.ax - 1
+
+                        else
+                            model.cat.ax
+                    , ay =
+                        if model.cat.ay > 0 then
+                            model.cat.ay - 1
+
+                        else
+                            model.cat.ay
+                    }
+              }
             , Cmd.none
             )
 
@@ -73,7 +105,6 @@ subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.batch
         [ Browser.Events.onAnimationFrameDelta Frame
-        , Sub.map KeyMsg Keyboard.subscriptions
         ]
 
 
@@ -111,7 +142,17 @@ gameBox model =
             , Svg.Attributes.fill "rgb(192 192 192)"
             ]
             []
-        , Portfolio.Common.blackCat
+        , Svg.g
+            [ Svg.Attributes.transform <|
+                String.concat
+                    [ "translate("
+                    , String.fromFloat model.cat.x
+                    , ","
+                    , String.fromFloat model.cat.y
+                    , ")"
+                    ]
+            ]
+            [ Portfolio.Common.blackCat ]
         ]
 
 
