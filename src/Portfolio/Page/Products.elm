@@ -113,7 +113,7 @@ cwWebRunner =
                 , Html.p
                     []
                     [ Html.text "モールス符号の聞き取り練習を行うソフトウェア及びwebサイトはいくつかあります。しかし、それらはゲーム性にかける、限られたOSでしか使用できないといった問題がありました。そのため、WebブラウザをプラットフォームとすることでDesktopとスマートフォンの両方で同じ使用感で練習ができ、かつゲーム性を持った"
-                    , Portfolio.Common.link "https://homedm.eim.world/cw_for_web/" "モールス符号聞き取り練習サイト"
+                    , Portfolio.Common.link "https://cw.eim.world/cw_for_web/" "モールス符号聞き取り練習サイト"
                     , Html.text "を開発しました。"
                     ]
                 ]
